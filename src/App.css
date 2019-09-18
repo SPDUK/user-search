@@ -14,3 +14,9 @@ nav .select {
 nav .button {
   width: 200px;
 }
+
+.post-list {
+  max-width: 50%;
+  max-height: 100vh;
+  overflow-y: scroll;
+}
