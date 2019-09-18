@@ -7,7 +7,7 @@ export default class PostInfo extends Component {
   render() {
     const { comments } = this.props;
     return (
-      <div>
+      <div className="post-info">
         <PostTable comments={comments} />
       </div>
     );

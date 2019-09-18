@@ -22,10 +22,10 @@ const PostTable = ({ comments }) => {
     for (const key of keys) {
       topWords.push([key, ((100 * words[key]) / keys.length).toFixed(1)]);
     }
-    return topWords;
+    // sort by percentage, highest first
+    // only return first 10 results
+    return topWords.sort((a, b) => b[1] - a[1]).slice(0, 10);
   };
-
-  console.log(topPercentages(allWords));
 
   const createTopWord = ([word, percent]) => (
     <tr key={word}>
@@ -42,11 +42,7 @@ const PostTable = ({ comments }) => {
             <th>% of all comments</th>
           </tr>
         </thead>
-        <tbody>
-          {topPercentages(allWords)
-            .slice(0, 10)
-            .map(createTopWord)}
-        </tbody>
+        <tbody>{topPercentages(allWords).map(createTopWord)}</tbody>
       </table>
     </div>
   );

@@ -65,9 +65,13 @@ class App extends Component {
               handleSearchChange={this.handleSearchChange}
               users={users}
             />
-            <div className="columns">
-              <PostList className="column is-half" posts={posts} />
-              <PostInfo className="column is-half" comments={comments} />
+            <div className="columns mt-1">
+              {posts.length > 1 && (
+                <PostList className="column is-half" posts={posts} />
+              )}
+              {comments.length > 1 && (
+                <PostInfo className="column is-half" comments={comments} />
+              )}
             </div>
           </>
         )}
