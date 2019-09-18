@@ -1,7 +1,6 @@
 import React from 'react';
 
 const PostTable = ({ topPercentages }) => {
-  console.log(topPercentages);
   const createTopWord = ([word, percent]) => (
     <tr key={word}>
       <td>{word}</td>

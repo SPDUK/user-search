@@ -26,9 +26,17 @@ nav .button {
 .post-info {
   padding: 30px;
   margin: 0 auto;
-  display: flex;
-  justify-content: center;
+
 }
 .mt-1 {
   margin-top: 10px;
+}
+
+.post-chart {
+  margin-top: 30px;
+  text-align: center;
+}
+
+.ct-chart {
+  height: 500px;
 }
