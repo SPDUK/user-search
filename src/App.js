@@ -3,11 +3,13 @@ import React, { Component } from 'react';
 import './App.css';
 import Navbar from './components/Navbar';
 import PostList from './components/PostList';
+import PostInfo from './components/PostInfo';
 
 class App extends Component {
   state = {
     users: [],
     posts: [],
+    comments: [],
     loading: true,
     currentUser: undefined,
   };
@@ -32,12 +34,16 @@ class App extends Component {
     const { currentUser } = this.state;
 
     try {
-      const { data } = await axios.get(
+      const posts = await axios.get(
         `https://jsonplaceholder.typicode.com/posts?userId=${currentUser}`
+      );
+      const comments = await axios.get(
+        `http://jsonplaceholder.typicode.com/comments?postId=${currentUser}`
       );
 
       this.setState({
-        posts: data,
+        posts: posts.data,
+        comments: comments.data,
       });
     } catch (err) {
       this.setState({
@@ -47,9 +53,9 @@ class App extends Component {
   };
 
   render() {
-    const { loading, users, posts, error } = this.state;
+    const { loading, users, posts, comments, error } = this.state;
     return (
-      <div className="App">
+      <>
         {loading ? (
           <p>Loading...</p>
         ) : (
@@ -59,11 +65,14 @@ class App extends Component {
               handleSearchChange={this.handleSearchChange}
               users={users}
             />
-            <PostList posts={posts} />
+            <div className="columns">
+              <PostList className="column is-half" posts={posts} />
+              <PostInfo className="column is-half" comments={comments} />
+            </div>
           </>
         )}
         {error || null}
-      </div>
+      </>
     );
   }
 }
