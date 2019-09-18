@@ -38,7 +38,7 @@ class App extends Component {
         `https://jsonplaceholder.typicode.com/posts?userId=${currentUser}`
       );
       const comments = await axios.get(
-        `http://jsonplaceholder.typicode.com/comments?postId=${currentUser}`
+        `https://jsonplaceholder.typicode.com/comments?postId=${currentUser}`
       );
 
       this.setState({
