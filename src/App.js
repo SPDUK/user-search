@@ -1,3 +1,4 @@
+import axios from 'axios';
 import React, { Component } from 'react';
 import './App.css';
 import Navbar from './components/Navbar';
@@ -5,10 +6,25 @@ import Navbar from './components/Navbar';
 class App extends Component {
   state = {
     search: '',
+    users: [],
     posts: [],
+    loading: true,
+    currentUser: undefined,
   };
 
-  handleSearchChange = e => this.setState({ search: e.target.value });
+  async componentDidMount() {
+    const { data } = await axios.get(
+      'https://jsonplaceholder.typicode.com/users'
+    );
+    this.setState({
+      users: data,
+      loading: false,
+    });
+  }
+
+  handleSearchChange = ({ id }) => {
+    this.setState({ currentUser: id });
+  };
 
   handleSearchSubmit = e => {
     e.preventDefault();
@@ -16,12 +32,19 @@ class App extends Component {
   };
 
   render() {
+    const { loading, users, posts, search, currentUser } = this.state;
+    console.log(users);
     return (
       <div className="App">
-        <Navbar
-          handleSearchSubmit={this.handleSearchSubmit}
-          handleSearchChange={this.handleSearchChange}
-        />
+        {loading ? (
+          <p>Loading...</p>
+        ) : (
+          <Navbar
+            handleSearchSubmit={this.handleSearchSubmit}
+            handleSearchChange={this.handleSearchChange}
+            users={users}
+          />
+        )}
       </div>
     );
   }
